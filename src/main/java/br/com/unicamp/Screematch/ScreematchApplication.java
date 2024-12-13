@@ -1,5 +1,6 @@
 package br.com.unicamp.Screematch;
 
+import br.com.unicamp.Screematch.service.ConsumoApi;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,6 +14,8 @@ public class ScreematchApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		System.out.println("Primeiro Projeto Spring sem Web");
+		var consumoApi = new ConsumoApi();
+		var json = consumoApi.obterDados("http://www.omdbapi.com/?t=matrix&Season&apikey=2173c5ab");
+		System.out.println(json);
 	}
 }
