@@ -20,16 +20,5 @@ public class ScreematchApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		Principal principal = new Principal();
 		principal.exibeMenu();
-
-		List<DadosTemporada> temporadas = new ArrayList<>();
-
-	/*	for(int i = 1;i<=dados.totalTemporadas();i++){
-			json = consumoApi.obterDados("http://www.omdbapi.com/?t=gilmore+girls&season=" + i +"&apikey=2173c5ab");
-			DadosTemporada dadosTemporada = conversor.obterDados(json, DadosTemporada.class);
-			temporadas.add(dadosTemporada);
-		}
-
-		temporadas.forEach(System.out::println);*/
-
 	}
 }

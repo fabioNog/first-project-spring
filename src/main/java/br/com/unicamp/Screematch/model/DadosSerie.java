@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public record DadosSerie(
         @JsonProperty("Title") String titulo,
         @JsonProperty("imdbRating") String avaliacao,
-        @JsonProperty("totalSeasons") String totalSeasons) {
+        @JsonProperty("totalSeasons") String totalTemporadas) {
 
     public Integer totalTemporadas() {
         // Converte "N/A" para null ou mantém o valor original
