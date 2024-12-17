@@ -1,5 +1,6 @@
 package br.com.unicamp.Screematch;
 
+import br.com.unicamp.Screematch.model.DadosEpisodio;
 import br.com.unicamp.Screematch.model.DadosSerie;
 import br.com.unicamp.Screematch.service.ConsumoApi;
 import br.com.unicamp.Screematch.service.ConverteDados;
@@ -22,7 +23,12 @@ public class ScreematchApplication implements CommandLineRunner {
 
 		ConverteDados conversor = new ConverteDados();
 		DadosSerie dados  =  conversor.obterDados(json, DadosSerie.class);
-
 		System.out.println(dados);
+
+		json = consumoApi.obterDados("http://www.omdbapi.com/?t=gilmore+girls&season=1&episode=2&apikey=2173c5ab");
+
+		DadosEpisodio dadosEpisodio = conversor.obterDados(json,DadosEpisodio.class);
+
+		System.out.println(dadosEpisodio);
 	}
 }
