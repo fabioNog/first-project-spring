@@ -15,7 +15,9 @@ public record DadosSerie(
     public Integer totalTemporadas() {
         // Converte "N/A" para null ou mantém o valor original
         try {
-            return totalSeasons.equals("N/A") ? null : Integer.parseInt(totalSeasons);
+            return totalSeasons != null && !totalSeasons.equalsIgnoreCase("N/A")
+                    ? Integer.parseInt(totalSeasons)
+                    : 0;
         } catch (NumberFormatException e) {
             return null;
         }
