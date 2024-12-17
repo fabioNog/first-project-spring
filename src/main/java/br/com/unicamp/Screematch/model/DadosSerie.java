@@ -1,6 +1,5 @@
 package br.com.unicamp.Screematch.model;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
@@ -12,11 +11,11 @@ public record DadosSerie(
         @JsonProperty("imdbRating") String avaliacao,
         @JsonProperty("totalSeasons") String totalTemporadas) {
 
-    public Integer totalTemporadas() {
+    public Integer buscaTotalTemporadas() {
         // Converte "N/A" para null ou mantém o valor original
         try {
-            return totalSeasons != null && !totalSeasons.equalsIgnoreCase("N/A")
-                    ? Integer.parseInt(totalSeasons)
+            return totalTemporadas != null && !totalTemporadas.equalsIgnoreCase("N/A")
+                    ? Integer.parseInt(totalTemporadas)
                     : 0;
         } catch (NumberFormatException e) {
             return null;
