@@ -1,5 +1,6 @@
 package br.com.unicamp.Screematch.principal;
 
+import br.com.unicamp.Screematch.model.DadosEpisodio;
 import br.com.unicamp.Screematch.model.DadosSerie;
 import br.com.unicamp.Screematch.model.DadosTemporada;
 import br.com.unicamp.Screematch.service.ConsumoApi;
@@ -8,6 +9,7 @@ import br.com.unicamp.Screematch.service.ConverteDados;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Principal {
 
@@ -38,5 +40,13 @@ public class Principal {
         temporadas.forEach(System.out::println);
 
         temporadas.forEach(t -> t.episodios().forEach(e -> System.out.println(e.titulo())));
+
+        List<DadosEpisodio> dadosEpisodios = temporadas.stream()
+                .flatMap(t -> t.episodios().stream())
+                .collect(Collectors.toList());
+
+        dadosEpisodios.add(new DadosEpisodio("Teste",3,"10","2020-01-01"));
+        dadosEpisodios.forEach(System.out::println);
+
     }
 }
