@@ -3,10 +3,12 @@ package br.com.unicamp.Screematch.principal;
 import br.com.unicamp.Screematch.model.DadosEpisodio;
 import br.com.unicamp.Screematch.model.DadosSerie;
 import br.com.unicamp.Screematch.model.DadosTemporada;
+import br.com.unicamp.Screematch.model.Episodio;
 import br.com.unicamp.Screematch.service.ConsumoApi;
 import br.com.unicamp.Screematch.service.ConverteDados;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -37,7 +39,7 @@ public class Principal {
             temporadas.add(dadosTemporada);
         }
 
-        temporadas.forEach(System.out::println);
+        //temporadas.forEach(System.out::println);
 
         temporadas.forEach(t -> t.episodios().forEach(e -> System.out.println(e.titulo())));
 
@@ -45,8 +47,18 @@ public class Principal {
                 .flatMap(t -> t.episodios().stream())
                 .collect(Collectors.toList());
 
-        dadosEpisodios.add(new DadosEpisodio("Teste",3,"10","2020-01-01"));
-        dadosEpisodios.forEach(System.out::println);
+        System.out.println("Top 5 Episódios");
+
+        dadosEpisodios.stream()
+                .filter(e -> !e.avaliacao().equalsIgnoreCase("N/A"))
+                .sorted(Comparator.comparing(DadosEpisodio::avaliacao).reversed()).
+                limit(5).forEach(System.out::println);
+
+        List<Episodio> episodios = temporadas.stream()
+                .flatMap(t -> t.episodios().stream().map(d -> new Episodio(t.numero(),d))
+                ).collect(Collectors.toList());
+
+        episodios.forEach(System.out::println);
 
     }
 }
