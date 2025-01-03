@@ -9,10 +9,7 @@ import br.com.unicamp.Screematch.service.ConverteDados;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Principal {
@@ -43,18 +40,18 @@ public class Principal {
 
         //temporadas.forEach(System.out::println);
 
-        temporadas.forEach(t -> t.episodios().forEach(e -> System.out.println(e.titulo())));
+       // temporadas.forEach(t -> t.episodios().forEach(e -> System.out.println(e.titulo())));
 
         List<DadosEpisodio> dadosEpisodios = temporadas.stream()
                 .flatMap(t -> t.episodios().stream())
                 .collect(Collectors.toList());
 
-        System.out.println("Top 5 Episódios");
+       /* System.out.println("Top 5 Episódios");
 
         dadosEpisodios.stream()
                 .filter(e -> !e.avaliacao().equalsIgnoreCase("N/A"))
                 .sorted(Comparator.comparing(DadosEpisodio::avaliacao).reversed()).
-                limit(5).forEach(System.out::println);
+                limit(5).forEach(System.out::println);*/
 
         List<Episodio> episodios = temporadas.stream()
                 .flatMap(t -> t.episodios().stream().map(d -> new Episodio(t.numero(),d))
@@ -62,7 +59,23 @@ public class Principal {
 
         episodios.forEach(System.out::println);
 
-        System.out.println("A partir de que ano você deseja ver os episodios?");
+        System.out.println("Digite um trecho do Titulo do episodio");
+
+        var trechoTitulo = leitura.nextLine();
+
+        Optional<Episodio> episodioBuscado = episodios.stream()
+                .filter(e -> e.getTitulo().toUpperCase().contains(trechoTitulo.toUpperCase()))
+                .findFirst();
+
+        if(episodioBuscado.isPresent()){
+            System.out.println("Episodio Encontrado");
+            System.out.println("Temporada: " + episodioBuscado.get().getTemporada());
+        }
+        else{
+            System.out.println("Não encontrado");
+        }
+
+       /* System.out.println("A partir de que ano você deseja ver os episodios?");
         var ano = leitura.nextInt();
         leitura.nextLine();
 
@@ -76,7 +89,7 @@ public class Principal {
                         "Temporada: " + e.getTemporada() +
                                 " Episódio: " + e.getTitulo() +
                                 " Data lançamento: " + e.getDataLancamento().format(formatador)
-                ));
+                ));*/
 
     }
 }
